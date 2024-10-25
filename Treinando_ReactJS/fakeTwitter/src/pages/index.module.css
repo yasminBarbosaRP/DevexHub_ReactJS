@@ -1,0 +1,33 @@
+.postList {
+    list-style-type: none;
+    margin: 3% 0;
+    padding: 0;
+}
+
+.postListItem {
+    padding: 3% 0 5%;
+}
+
+.postListItem:not(:last-child) {
+    border-bottom: solid 1px black;
+}
+
+.botaoSend {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.botaoSend:hover {
+    transition: 0.3s;
+    box-shadow: 0px 3px 4px rgb(87, 0, 0, 50%);
+}
+
+.botaoSend:disabled {
+    background-color: rgb(255, 0, 0, 60%);
+    pointer-events: none;
+}

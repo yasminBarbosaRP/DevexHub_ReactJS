@@ -1,0 +1,105 @@
+.postContainer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 
+    "fotoPerfil user seeMore"
+    "fotoPerfil text text"
+    "fotoPerfil postData parteInterativa";
+    gap: 4px 16px;
+}
+
+.fotoPerfil {
+    grid-area: fotoPerfil;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    grid-area: user;
+}
+
+.tresPontinhos {
+    grid-area: seeMore;
+    width: 15px;
+    height: 15px;
+    opacity: 70%;
+    position: absolute;
+}
+
+.botaoTresPontinhos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    background-color: none;
+    position: relative;
+    left: 22%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.buttonExcluir {
+    background-color: rgb(222, 222, 222);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7%;
+    height: 3%;
+    left: 87%;
+    position: absolute;
+}
+
+.postHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postFooter {
+    display: flex;
+    align-items: center;
+}
+
+.postData {
+    grid-area: postData;
+}
+
+.userName {
+    margin: 0 2% 0 0;
+    font-weight: bold;
+    color: red;
+}
+
+.userUserName {
+    margin: 0;
+    font-size: small;
+    color: rgb(0, 0, 0, 60%);
+}
+
+.date {
+    margin: 4% 0;
+    font-size: small;
+    color: rgb(0, 0, 0, 60%);
+}
+
+.parteInterativa {
+    grid-area: parteInterativa;
+}
+
+.parteInterativa img {
+    margin: 0 0 0 10px;
+    width: 18px;
+}
+
+.postText {
+    margin: 2% 0;
+    grid-area: text;
+    width: 95%;
+    word-break: break-all;
+}

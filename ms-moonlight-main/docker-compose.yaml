@@ -1,0 +1,166 @@
+services:
+  moonlight-build:
+    container_name: moonlight.build
+    build:
+      args:
+        GITHUB_TOKEN_MOONLIGHT: ${git_token}
+      context: .
+      dockerfile: Dockerfile
+
+  moonlight-test:
+    container_name: moonlight.test
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+
+  frontend.moonlight.dev:
+    container_name: frontend.moonlight.dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    ports:
+      - "3000:3000"
+    entrypoint: yarn
+    command:
+      - start
+      - --config
+      - /app/app-config.local.yaml
+    volumes:
+      - .:/app
+
+  backend.moonlight.dev:
+    container_name: backend.moonlight.dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    ports:
+      - "7001:7000"
+    env_file:
+      - .env
+    environment:
+      - DB_MOONLIGHT_HOST=db
+      - DB_MOONLIGHT_PORT=5432
+    entrypoint: yarn
+    command:
+      - start-backend
+      - --config
+      - /app/app-config.local.yaml
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:16.3-alpine3.20
+    restart: always
+    volumes:
+      - db-data:/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: docker
+      POSTGRES_DB: moonlight
+
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4510-4530:4510-4530"
+      - "4566:4566"
+      - "4571:4571"
+    environment:
+      - SERVICES=sqs,s3
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - HOSTNAME_EXTERNAL=localstack
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=fakeAccessKeyId
+      - AWS_SECRET_ACCESS_KEY=fakeSecretAccessKey
+      - AWS_SESSION_TOKEN=abc
+      - DEFAULT_REGION=us-east-1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  
+  opensearch-node:
+    container_name: opensearch
+    image: opensearchproject/opensearch:2
+    environment:
+      - discovery.type=single-node
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=1SenhaForte!
+      - DISABLE_SECURITY_PLUGIN=true
+    ports:
+      - 9200:9200
+      - 9600:9600
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:2
+    container_name: opensearch-dashboards
+    ports:
+      - 5601:5601
+    environment:
+      OPENSEARCH_HOSTS: '["http://opensearch-node:9200"]'
+      DISABLE_SECURITY_DASHBOARDS_PLUGIN: "true"
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.40.0
+    ports:
+      - "16686:16686"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - METRICS_STORAGE_TYPE=prometheus
+      - PROMETHEUS_SERVER_URL=http://prometheus:9090
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.68.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./docker/otel-collector.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "8888:8888"
+      - "9999:9999"
+    depends_on:
+      - jaeger
+      - grafana
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:v2.41.0
+    command:
+      - --web.console.templates=/etc/prometheus/consoles
+      - --web.console.libraries=/etc/prometheus/console_libraries
+      - --storage.tsdb.retention.time=1h
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle
+      - --web.route-prefix=/
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --web.enable-remote-write-receiver
+    volumes:
+      - ./docker/prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:9.3.2
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./docker/ds-prometheus.yaml:/etc/grafana/provisioning/datasources/datasource.yml
+    environment:
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_BASIC_ENABLED=false
+    depends_on:
+      - prometheus
+
+  redis:
+    image: redis:6.2.5
+    ports:
+      - "6379:6379"    
+
+volumes:
+  localstack_data:
+  db-data:
+  opensearch-data1:

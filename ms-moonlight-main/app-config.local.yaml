@@ -1,0 +1,191 @@
+localhost:
+  user: userguest
+  userEntityRef: user:default/userguest
+
+app:
+  title: Moonlight
+  baseUrl: http://localhost:3000
+  analytics:
+    ga:
+      trackingId: '' # não remover!!! Se remover isso as métricas ga4 para
+    ga4:
+      measurementId: G-0000000-0
+      identity: optional
+      allowedContexts: ['*']
+      allowedAttributes: ['*']
+
+backend:
+  baseUrl: http://localhost:${MOONLIGHT_BACKEND_PORT}
+  auth:
+    keys:
+    - secret: 'shhh'
+  listen:
+    port: ${MOONLIGHT_BACKEND_PORT}
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    worker-src: ['blob:']
+    script-src: ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://www.google-analytics.com', 'https://www.googletagmanager.com']
+    img-src: ["'self'", 'http:', 'https:', 'data:']
+    default-src: ["'self'", 'strict-origin-when-cross-origin']
+  cors:
+    origin: http://localhost:3000  
+    # methods: [GET, POST, PUT, PATCH, DELETE]
+    credentials: true
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
+  cache:
+    store: memory
+
+apis:
+  metrics: http://ms-katchau-accelerate-metrics.ms.qa
+
+events:
+  modules:
+    github:
+      webhookSecret: ${MOONLIGHT_WEBHOOK_SECRET}
+    awsSqs:
+      queueUrl: https://sqs.us-east-1.amazonaws.com/462495227997/moonlight-qa
+      region: ${AWS_REGION}
+      credentials:
+        accessKeyId: ${AWS_ACCESS_KEY_ID}
+        secretAccessKey: ${AWS_SECRET_ACCESS_KEY}
+        sessionToken: ${AWS_SESSION_TOKEN}
+  http:
+    topics:
+    - github
+
+sonarqube:
+  baseUrl: https://sonarcloud.io
+  apiKey: 'test'
+
+# discovery:
+#   endpoints:
+#     - target: https://moonlight.limbo.work/api/catalog
+#       plugins: [catalog]
+
+integrations:
+  github:
+  # - host: github.com
+  #   token: ${GITHUB_TOKEN}
+    - host: github.com
+      apps:
+        $include: github-apps-local.yaml
+
+# proxy:
+#   "/xcmetrics":
+#     target: "XCMETRICS_URL}
+
+catalog:
+  processingInterval:
+    hours: ${PROCESSING_INTERVAL_HOURS}
+    minutes: ${PROCESSING_INTERVAL_MINUTES}
+  orphanStrategy: delete
+  rules:
+  - allow: [Component, API, Resource, Group, User, Template, System, Domain, Location]
+  locations:
+  - type: file
+    target: ../examples/catalog-*.yaml
+    rules:
+    - allow: [Component, API, Resource, Group, User, System, Domain, Location]
+  - type: file
+    target: ../examples/moonlight-templates.yaml
+    rules:
+    - allow: [Template]
+  - type: file
+    target: ../../*.yaml
+
+techdocs:
+  builder: 'local' # Alternatives - 'external'
+  generator:
+    runIn: 'local'
+  publisher:
+    type: 'local'
+
+auth:
+  providers: {}
+
+scaffolder:
+  github:
+    token: ${GITHUB_TOKEN}
+    visibility: public
+
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+  - type: 'config'
+    clusters: []
+
+fausthanos:
+  url: ${FAUSTHANOS_ENDPOINT}
+  apiPrefix: ${FAUSTHANOS_PREFIX}
+  token: ${FAUSTHANOS_TOKEN}
+
+argocd:
+  - url: ${ARGOCD_ENDPOINT}
+    token: ${ARGOCD_TOKEN}
+    environments: 
+      - hom
+      - prd
+  - url: ${ARGOCD_ENDPOINT_HOM}
+    token: ${ARGOCD_TOKEN_HOM}
+    environments: 
+      - hom
+  - url: ${ARGOCD_ENDPOINT_PRD}
+    token: ${ARGOCD_TOKEN_PRD}
+    environments: 
+      - prd
+
+vault:
+  vus:
+    url: ${VAULT_ADDR}
+    apiVersion: ${VAULT_API_VERSION}
+    role_id: ${VAULT_ROLE_ID}
+    secret_id: ${VAULT_SECRET_ID}
+  vbr:
+    url: ${VAULT_ADDR_BR}
+    apiVersion: ${VAULT_API_VERSION_BR}
+    role_id: ${VAULT_ROLE_ID_BR}
+    secret_id: ${VAULT_SECRET_ID_BR}
+
+houston:
+  url: ${HOUSTON_ENDPOINT}
+  appId: ${HOUSTON_APP_ID}
+  squadName: ${HOUSTON_SQUAD_NAME}
+
+vision:
+  url: ${VISION_ENDPOINT}
+
+announcements:
+  githubIntegration: false
+
+githubRepositorySetting:
+  canEdit: false
+
+picpayEntityProvider:
+  s3:
+    forcePathStyle: true
+  microsoftAD:
+    scimToken: test
+  callbacks:
+    template:
+      modified: '{{userRef}} foi incluído no grupo {{group}} com sucesso, obrigado!'
+      replaced: '{{userRef}} foi incluído no grupo {{group}} e removido do(s) grupo(s) {{previousGroups}}, obrigado!'
+      notModifiedTemplate: '{{userRef}} não foi incluído no grupo {{group}} porque já faz parte do grupo.'
+  remainders:
+    outOfGroups:
+      enabled: true
+      template: 'Olá! Encontramos a pessoa {{ user.name }} fora dos grupos que você direcionou na estrutura organizacional do PicPay, você poderia informar qual dos grupos a pessoa está?'
+      days: 10
+    unnamedGroups:
+      enabled: false
+      template: 'Olá {{ entity.metadata.name }}, precisamos que dê uma atenção ao grupo da estrutura organizacional.'
+      days: 10
+
+slack:
+  token: test
+  signingSecret: test
+
+permission:
+  enabled: true

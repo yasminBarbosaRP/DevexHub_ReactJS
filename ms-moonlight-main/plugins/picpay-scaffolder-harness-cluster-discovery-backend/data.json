@@ -1,0 +1,11 @@
+{
+  "filter": {
+    "metadata.name": "ms-migration-github-moonlight",
+    "kind": "Component"
+  },
+  "annotation": {
+    "moonlight.picpay/cluster-migration-status": "MIGRATED",
+    "moonlight.picpay/cluster-migration-timestamp": "1676557170042",
+    "moonlight.picpay/cluster-migration-user": "user:default/vitor.cassiano"
+  }
+}

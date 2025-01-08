@@ -1,0 +1,40 @@
+basePath: /api/tools
+host: moonlight.qa.ppay.me
+swagger: '2.0'
+info:
+  contact:
+    name: 'squad-atlantis'
+    url: http://moonlight.limbo.work
+  description: List all PicPay tools
+  termsOfService: http://swagger.io/terms/
+  title: moonlight-plugin-tools-backend
+  version: '1.0'
+paths:
+  /:
+    get:
+      description: Returns tools at PicPay.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            properties:
+              'tools':
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    url:
+                      type: string
+                    typeInterface:
+                      type: string
+                    groupType:
+                      type: string
+      tags:
+        - tools

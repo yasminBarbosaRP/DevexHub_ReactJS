@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: moonlight-plugin-cluster-migration-backend
+  labels:
+    moonlight.picpay/language: javascript
+    moonlight.picpay/framework: node
+    moonlight.picpay/monitoring: dynatrace
+  tags:
+    - typescript
+    - nodejs
+    - backstage
+  description: |
+    Plugin de TaskRunner responsável por alterar status de migração de cluster dos serviços
+  links:
+    - title: Website
+      url: http://moonlight.limbo.work
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: PicPay/ms-moonlight/plugins/
+    sonarqube.org/project-key: PicPay_picpay-ops-moonlight
+    lighthouse.com/website-url: https://backstage.io
+spec:
+  lifecycle: production
+  owner: squad-atlantis
+  system: moonlight
+  type: plugin
+  subcomponentOf: ms-moonlight

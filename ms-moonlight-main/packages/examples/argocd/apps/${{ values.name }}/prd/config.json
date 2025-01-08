@@ -1,0 +1,17 @@
+{
+  "labels": {
+    "bu": "${{ values.bu }}"
+  },
+  "notifications": {
+    "slack": "argocd-notifications;prod-deploy"
+  },
+  "source": {
+    "repo": "https://github.com/PicPay/${{ values.name }}-infra.git",
+    "path": "chart",
+    "values": "values.prod.yaml"
+  },
+  "destination": {
+    "name": "${{ values.cluster.production }}",
+    "namespace": "${{ values.name }}"
+  }
+}

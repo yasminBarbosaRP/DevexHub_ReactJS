@@ -1,0 +1,10 @@
+# Name: moonlight-env-dev
+- appId: ${GITHUB_APP_ID}
+  webhookUrl: https://smee.io/oEJ51XstCSheuovf0pJO
+  clientId: Iv1.1da7d2e7a4d29f73
+  clientSecret: ${GITHUB_APP_CLIENT_SECRET}
+  webhookSecret: ${GITHUB_APP_WEBHOOK_SECRET}
+  privateKey: |
+    -----BEGIN RSA PRIVATE KEY-----
+    ${MOONLIGHT_LOCAL_GITHUB_APP_PRIVATE_KEY}
+    -----END RSA PRIVATE KEY-----

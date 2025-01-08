@@ -1,0 +1,232 @@
+app:
+  title: Moonlight
+  baseUrl: http://localhost:3000
+
+  support:
+    url: https://github.com/PicPay/ms-moonlight/issues
+    items:
+      - title: Issues
+        icon: github
+        links:
+          - url: https://github.com/PicPay/ms-moonlight/issues
+            title: GitHub Issues
+      - title: Doc Confluence
+        icon: docs
+        links:
+          - url: https://picpay.atlassian.net/wiki/spaces/MOON/overview?homepageId=2410873080
+            title: Doc Confluence
+apis:
+  metrics: http://katchau-accelerate-metrics.ppay.me
+
+organization:
+  name: PicPay
+
+backend:
+  auth:
+    keys:
+      - secret: ${MOONLIGHT_BACKEND_SECRET}
+  baseUrl: http://localhost:7000
+  listen:
+    port: 7000
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    worker-src: ['blob:']
+    script-src:
+      [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        'https://www.google-analytics.com',
+        'https://www.googletagmanager.com',
+      ]
+    img-src: ["'self'", 'http:', 'https:', 'data:']
+  reading:
+    allow:
+      - host: '*.ms.qa'
+      - host: '*.ms.prod'
+      - host: '*.ppay.me'
+      - host: '*.ppay.dev'
+      - host: '*.limbo.work'
+      - host: '*.service.picpay.local'
+      - host: '*.picpay.com'
+      - host: '*.ligainvest.com.br'
+      - host: '*/swagger.yaml'
+      - host: '*/swagger.json'
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, POST, PUT, PATCH, DELETE]
+    credentials: true
+  database:
+    client: pg
+    connection:
+      host:
+        $env: DB_MOONLIGHT_HOST
+      port:
+        $env: DB_MOONLIGHT_PORT
+      user:
+        $env: DB_MOONLIGHT_USER
+      password:
+        $env: DB_MOONLIGHT_PASSWORD
+
+integrations:
+  github:
+    - host: github.com
+      apps:
+        - $include: github-apps.yaml
+#       token:
+#         $env: GITHUB_TOKEN
+
+proxy:
+  '/test':
+    target: 'https://example.com'
+    changeOrigin: true
+
+  # '/newrelic/apm/api':
+  #   target: https://api.newrelic.com/v2
+  #   headers:
+  #     X-Api-Key: ${MOONLIGHT_NEW_RELIC_REST_API_KEY}
+
+  # '/xcmetrics':
+  #   target: '${XCMETRICS_URL}'
+
+sonarqube:
+  baseUrl: https://sonarcloud.io
+  apiKey: '${SONARQUBE_TOKEN}'
+
+auth:
+  providers:
+    # See https://backstage.io/docs/auth/guest/provider
+    guest: {}
+
+scaffolder:
+  github:
+    token: ${GITHUB_TOKEN}
+    visibility: public
+
+kubernetes:
+  apiVersionOverrides:
+    cronjobs: 'v1beta1'
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        # - url: ${KUBERNETES_URL_QA}
+        #   name: QA
+        #   authProvider: 'serviceAccount'
+        #   skipTLSVerify: true
+        #   skipMetricsLookup: true
+        #   serviceAccountToken: ${KUBERNETES_TOKEN_QA}
+        # - url: ${KUBERNETES_URL_PROD}
+        #   name: Prod
+        #   authProvider: 'serviceAccount'
+        #   skipTLSVerify: true
+        #   skipMetricsLookup: true
+        #   serviceAccountToken: ${KUBERNETES_TOKEN_PROD}
+        - url: ${KUBERNETES_TEKTON_URL_PROD}
+          name: Tekton
+          authProvider: 'serviceAccount'
+          skipTLSVerify: true
+          skipMetricsLookup: true
+          serviceAccountToken: ${KUBERNETES_TEKTON_TOKEN_PROD}
+          customResources:
+            - group: 'tekton.dev'
+              apiVersion: 'v1beta1'
+              plural: 'pipelineruns'
+            - group: 'tekton.dev'
+              apiVersion: 'v1beta1'
+              plural: 'taskruns'
+
+fausthanos:
+  url: ${FAUSTHANOS_ENDPOINT}
+  apiPrefix: ${FAUSTHANOS_PREFIX}
+
+argocd:
+  - url: ${ARGOCD_ENDPOINT}
+    token: ${ARGOCD_TOKEN}
+    environments: 
+      - hom
+      - prd
+  - url: ${ARGOCD_ENDPOINT_HOM}
+    token: ${ARGOCD_TOKEN_HOM}
+    environments: 
+      - hom
+  - url: ${ARGOCD_ENDPOINT_PRD}
+    token: ${ARGOCD_TOKEN_PRD}
+    environments: 
+      - prd
+
+houston:
+  url: ${HOUSTON_ENDPOINT}
+  appId: ${HOUSTON_APP_ID}
+  squadName: ${HOUSTON_SQUAD_NAME}
+
+vision:
+  url: ${VISION_ENDPOINT}
+
+vault:
+  vus:
+    url: ${VAULT_ADDR}
+    apiVersion: ${VAULT_API_VERSION}
+    role_id: ${VAULT_ROLE_ID}
+    secret_id: ${VAULT_SECRET_ID}
+  vbr:
+    url: ${VAULT_ADDR_BR}
+    apiVersion: ${VAULT_API_VERSION_BR}
+    role_id: ${VAULT_ROLE_ID_BR}
+    secret_id: ${VAULT_SECRET_ID_BR}
+
+search:
+  elasticsearch:
+    provider: opensearch
+    node: ${OPENSEARCH_NODE}
+    auth:
+      username: ${OPENSEARCH_USERNAME}
+      password: ${OPENSEARCH_PASSWORD}
+
+picpayEntityProvider:
+  source: microsoftAD # or s3
+  # s3:
+  #   endpoint: ${PICPAY_S3_ENDPOINT}
+  #   region: ${PICPAY_S3_REGION}
+  #   accessKeyId: ${PICPAY_S3_ACCESS_KEY_ID}
+  #   secretAccessKey: ${PICPAY_S3_SECRET_ACCESS_KEY}
+  #   sessionToken: ${PICPAY_S3_SESSION_TOKEN}
+  #   forcePathStyle: false
+  microsoftAD:
+    scimToken: ${PICPAY_SCIM_TOKEN}
+  callbacks:
+    template:
+      modified: ${PICPAY_ENTITY_PROVIDER_MODIFIED_CALLBACK_TEMPLATE}
+      replaced: ${PICPAY_ENTITY_PROVIDER_REPLACED_CALLBACK_TEMPLATE}
+      notModifiedTemplate: ${PICPAY_ENTITY_PROVIDER_NOT_MODIFIED_CALLBACK_TEMPLATE}
+  remainders:
+    outOfGroups:
+      enabled: ${PICPAY_GROUP_PROVIDER_OUT_OF_GROUPS_REMINDER}
+      template: ${PICPAY_GROUP_PROVIDER_OUT_OF_GROUPS_REMINDER_TEMPLATE}
+      days: ${PICPAY_GROUP_PROVIDER_OUT_OF_GROUPS_REMINDER_DAYS}
+    unnamedGroups:
+      enabled: ${PICPAY_GROUP_PROVIDER_UNNAMED_REMINDER}
+      template: ${PICPAY_GROUP_PROVIDER_UNNAMED_REMINDER_TEMPLATE}
+      days: ${PICPAY_GROUP_PROVIDER_OUT_UNNAMED_REMINDER_DAYS}
+
+slack:
+  token: ${SLACK_TOKEN}
+  signingSecret: ${SLACK_SIGNING_SECRET}
+
+permission:
+  enabled: true
+
+qeta:
+  allowAnonymous: false
+  allowMetadataInput: false
+  allowGlobalEdits: false
+  entities:
+    max: 3
+  entityKinds:
+    - Component
+  tags:
+    allowCreation: true
+    max: 5
+  moderators:
+    - group:default/squad-atlantis

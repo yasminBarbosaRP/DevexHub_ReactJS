@@ -1,0 +1,28 @@
+basePath: /
+host: ms-katchau-metrics.ms.qa
+info:
+  contact:
+    name: 'squad-atlantis'
+    url: https://picpay.atlassian.net/wiki/spaces/A/overview?homepageId=2181530059
+  description: Serviço responsável pela coleta, construção e disponibilização das métricas dos serviços no PicPay
+  termsOfService: http://swagger.io/terms/
+  title: ms-katchau-metrics
+  version: '1.0'
+paths:
+  /health:
+    get:
+      consumes:
+        - '*/*'
+      description: get the status of server.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Show the status of server.
+      tags:
+        - root
+swagger: '2.0'

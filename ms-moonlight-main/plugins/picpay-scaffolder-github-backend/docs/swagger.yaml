@@ -1,0 +1,10 @@
+openapi: 3.0.3
+info:
+  title: Scaffolder Github Backend
+  description: |-
+    API Documentation of Backend Plugin of Moonlight Portal moonlight-plugin-scaffolder-github-backend
+  version: 1.0.0
+servers:
+  - url: https://moonlight.qa.ppay.me/api/scaffolder-github
+    description: Moonlight QA
+paths: {}

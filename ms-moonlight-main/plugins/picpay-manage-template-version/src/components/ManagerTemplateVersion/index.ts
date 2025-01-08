@@ -1,0 +1,1 @@
+export { ManagerTemplateVersion } from './ManagerTemplateVersion';

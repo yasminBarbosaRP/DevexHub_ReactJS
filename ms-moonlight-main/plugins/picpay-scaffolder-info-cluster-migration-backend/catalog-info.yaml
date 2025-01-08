@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: moonlight-plugin-scaffolder-info-cluster-migration
+  labels:
+    moonlight.picpay/language: javascript
+    moonlight.picpay/framework: node
+    moonlight.picpay/monitoring: dynatrace
+  tags:
+    - typescript
+    - nodejs
+    - backstage
+  description: |
+    Plugin para exibir informações do processo de migração
+  links:
+    - title: Website
+      url: http://moonlight.limbo.work
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: PicPay/ms-moonlight/plugins/picpay-scaffolder-info-cluster-migration-backend
+    sonarqube.org/project-key: PicPay_picpay-ops-moonlight
+    lighthouse.com/website-url: https://backstage.io
+spec:
+  lifecycle: production
+  owner: squad-atlantis
+  system: moonlight
+  type: plugin
+  subcomponentOf: ms-moonlight

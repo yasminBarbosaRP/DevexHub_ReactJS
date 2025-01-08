@@ -1,0 +1,15 @@
+FROM 289208114389.dkr.ecr.us-east-1.amazonaws.com/picpay/node:18-buster AS builder
+
+RUN addgroup -S moonlight \
+    && adduser -S moonlight -G moonlight
+
+USER moonlight
+
+WORKDIR /app
+
+ARG GITHUB_TOKEN_MOONLIGHT
+RUN echo "@picpay:registry=https://npm.pkg.github.com" > ~/.npmrc && \
+    echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN_MOONLIGHT" >> ~/.npmrc
+COPY . .
+RUN yarn config set python /usr/bin/python3
+RUN yarn install --silent --ignore-scripts && yarn tsc && yarn test:all

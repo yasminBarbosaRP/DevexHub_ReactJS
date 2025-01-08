@@ -1,0 +1,77 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: moonlight
+  description: Conjunto de Componentes que compoem a IDP do Moonlight
+  tags:
+    - tool
+    - ci
+    - cd
+    - cli
+spec:
+  lifecycle: production
+  owner: squad-atlantis
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: moonlight-plugins
+  description: A collection of all Moonlight Plugins
+spec:
+  targets:
+    - ./plugins/*/catalog-info.yaml
+    - ./packages/*/catalog-info.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ms-moonlight
+  labels:
+    moonlight.picpay/language: javascript
+    moonlight.picpay/framework: reactjs
+    moonlight.picpay/monitoring: dynatrace
+    backstage.io/kubernetes-id: ms-moonlight
+  tags:
+    - postgres
+    - react
+    - typescript
+    - nodejs
+  description: |
+    BFF (Backend-For-Frontend) of Moonlight Portal
+  links:
+    - url: https://picpay.atlassian.net/jira/software/c/projects/ATL/boards/6585
+      title: Jira Board
+      icon: dashboard
+    - url: https://picpay.atlassian.net/wiki/spaces/A/overview
+      title: Confluence Docs
+      icon: docs
+    - title: Website
+      icon: HttpIcon
+      url: http://backstage.io
+    - title: Documentation
+      icon: PageviewIcon
+      url: https://backstage.io/docs
+    - title: Storybook
+      icon: BookIcon
+      url: https://backstage.io/storybook
+    - title: Discord Chat
+      icon: ChatIcon
+      url: https://discord.com/invite/EBHEGzX
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: PicPay/picpay-ops-ms-moonlight
+    sonarqube.org/project-key: PicPay_picpay-ops-moonlight
+    lighthouse.com/website-url: https://backstage.io
+    backstage.io/kubernetes-id: ms-moonlight
+    backstage.io/kubernetes-namespace: moonlight-pipeline
+    janus-idp.io/tekton: ms-moonlight
+    backstage.io/kubernetes-label-selector: 'app-name=ms-moonlight'
+
+spec:
+  lifecycle: production
+  owner: squad-atlantis
+  system: moonlight
+  type: service
+  dependsOn:
+    - 'resource:moonlight-postgres'
+    - 'resource:moonlight-redis'

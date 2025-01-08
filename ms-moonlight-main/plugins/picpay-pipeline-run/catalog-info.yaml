@@ -1,0 +1,27 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: moonlight-plugin-pipeline-run
+  labels:
+    moonlight.picpay/language: javascript
+    moonlight.picpay/framework: react
+    moonlight.picpay/monitoring: dynatrace
+  tags:
+    - typescript
+    - react
+    - backstage
+  description: |
+    O plugin Pipeline regista a etapa e o estado das pipelines desde os últimos 60 minutos, com acesso directo ao componente específico.
+  links:
+    - title: Website
+      url: http://moonlight.limbo.work
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: PicPay/ms-moonlight/plugins/picpay-pipeline-run
+    sonarqube.org/project-key: PicPay_picpay-ops-moonlight
+    lighthouse.com/website-url: https://backstage.io
+spec:
+  lifecycle: production
+  owner: squad-atlantis
+  system: moonlight
+  type: website

@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: moonlight-plugin-copy-helm-argocd-backend
+  labels:
+    moonlight.picpay/language: javascript
+    moonlight.picpay/framework: node
+    moonlight.picpay/monitoring: dynatrace
+  tags:
+    - typescript
+    - nodejs
+    - backstage
+  description: |
+    Plugin de scaffold temporário, reponsável pela cópia do hemlcharts migração para o ArgoCD
+  links:
+    - title: Website
+      url: http://moonlight.limbo.work
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: PicPay/ms-moonlight/plugins/picpay-scaffolder-copy-helm-agorcd-backend
+    sonarqube.org/project-key: PicPay_picpay-ops-moonlight
+    lighthouse.com/website-url: https://backstage.io
+spec:
+  lifecycle: production
+  owner: developer-tools
+  system: moonlight
+  type: plugin
+  subcomponentOf: ms-moonlight

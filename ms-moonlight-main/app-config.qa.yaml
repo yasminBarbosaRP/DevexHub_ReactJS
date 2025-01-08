@@ -1,0 +1,119 @@
+app:
+  baseUrl: https://moonlight.qa.ppay.me
+  analytics:
+    ga:
+      trackingId: '' # não remover!!! Se remover isso as métricas ga4 para
+    ga4:
+      measurementId: G-DZCHQC1CTQ
+      identity: optional
+      allowedContexts: ['*']
+      allowedAttributes: ['*']
+
+backend:
+  csp:
+    img-src: ["'self'", 'http:', 'https:', 'data:']
+  baseUrl: https://moonlight.qa.ppay.me
+  cors:
+    origin: https://moonlight.qa.ppay.me
+  cache:
+    store: redis
+    connection: ${MOONLIGHT_REDIS}
+
+auth:
+  environment: qa
+  providers:
+    microsoft:
+      qa:
+        clientId: ${AUTH_MICROSOFT_CLIENT_ID}
+        clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
+        tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+    guest: null
+
+apis:
+  metrics: https://katchau-accelerate-metrics.ppay.me
+
+events:
+  modules:
+    github:
+      webhookSecret: ${MOONLIGHT_WEBHOOK_SECRET}
+    awsSqs:
+      queueUrl: ${MOONLIGHT_WEBHOOK_QUEUE_URL}
+      region: ${MOONLIGHT_WEBHOOK_QUEUE_REGION}
+
+  http:
+    topics:
+      - github
+
+catalog:
+  processingInterval:
+    hours: ${PROCESSING_INTERVAL_HOURS}
+    minutes: ${PROCESSING_INTERVAL_MINUTES}
+  orphanStrategy: delete
+  rules:
+    - allow:
+        [
+          Component,
+          API,
+          Resource,
+          Group,
+          User,
+          Template,
+          System,
+          Domain,
+          Location,
+        ]
+  providers:
+    github:
+      catalogs:
+        organization: 'PicPay'
+        catalogPath: '/catalog-info.yaml'
+        rules:
+          - allow:
+              [Component, API, Resource, Group, User, System, Domain, Location]
+      templates:
+        organization: 'PicPay'
+        catalogPath: '/template.yaml'
+        filters:
+          branch: 'qa' # string
+          repository: 'moonlight\-template.*' # Regex
+        rules:
+          - allow:
+              [Template]
+
+integrations:
+  github:
+    - host: github.com
+      apps:
+        $include: github-apps-qa.yaml
+
+techdocs:
+  builder: 'external'
+  publisher:
+    type: 'awsS3'
+    awsS3:
+      bucketName: ${MOONLIGHT_TECH_DOCS_BUCKET}
+      region: ${MOONLIGHT_TECH_DOCS_BUCKET_REGION}
+      credentials:
+        roleArn: ${MOONLIGHT_TECH_DOCS_ROLE_ARN}
+  cache:
+    ttl: ${REDIS_TTL}
+    readTimeout: ${REDIS_TIMEOUT}
+
+fausthanos:
+  url: ${FAUSTHANOS_ENDPOINT}
+  apiPrefix: ${FAUSTHANOS_PREFIX}
+  token: ${FAUSTHANOS_TOKEN}
+
+houston:
+  url: ${HOUSTON_ENDPOINT}
+  appId: ${HOUSTON_APP_ID}
+  squadName: ${HOUSTON_SQUAD_NAME}
+
+vision:
+  url: ${VISION_ENDPOINT}
+
+announcements:
+  githubIntegration: false
+
+githubRepositorySetting:
+  canEdit: true

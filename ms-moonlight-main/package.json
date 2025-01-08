@@ -1,0 +1,97 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "18 || 20"
+  },
+  "scripts": {
+    "repair": "lerna repair",
+    "dev": "concurrently \"yarn start\" \"yarn start-backend\"",
+    "local": "yarn start-backend --config ../../app-config.local.yaml & yarn start --config ../../app-config.local.yaml",
+    "start": "yarn workspace app start",
+    "start-backend": "yarn workspace backend start",
+    "build": "lerna run build",
+    "build-image": "yarn workspace backend build-image",
+    "tsc": "tsc",
+    "tsc:full": "tsc --skipLibCheck false --incremental false",
+    "clean": "backstage-cli clean && lerna run clean",
+    "diff": "lerna run diff --",
+    "test": "backstage-cli test",
+    "test:all": "lerna run test -- --coverage --silent",
+    "test:adjust_coverage_paths": "sh scripts/adjust_coverage_paths.sh",
+    "lint": "lerna run lint --since refs/remotes/origin/main --",
+    "lint:all": "lerna run lint --",
+    "new": "backstage-cli new --scope internal",
+    "remove-plugin": "backstage-cli remove-plugin"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "plugins/*"
+    ]
+  },
+  "dependencies": {
+    "@backstage/catalog-model": "^1.5.0",
+    "@octokit/request": "^9.1.1",
+    "canvas": "^2.11.2",
+    "isolated-vm": "^4.7.2",
+    "knex": "^3.1.0",
+    "mockdate": "^3.0.5",
+    "textextensions": "^6.11.0",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@backstage/catalog-model": "^1.5.0",
+    "@backstage/cli": "^0.26.10",
+    "@backstage/e2e-test-utils": "^0.1.1",
+    "@backstage/plugin-shortcuts": "^0.3.24",
+    "@playwright/test": "^1.32.3",
+    "@types/node": "^18.17.8",
+    "@types/webpack": "^5.28.0",
+    "antd": "^5.17.0",
+    "array-to-table": "^1.0.1",
+    "command-exists": "^1.2.9",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.0",
+    "eslint": "^8.6.0",
+    "eslint-plugin-notice": "^0.9.10",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-testing-library": "^6.0.0",
+    "fs-extra": "^11.2.0",
+    "husky": "^9.0.11",
+    "jest-fetch-mock": "^3.0.3",
+    "knip": "^5.0.0",
+    "lerna": "^5.6.2",
+    "lint-staged": "^15.2.2",
+    "minimist": "^1.2.5",
+    "node-gyp": "^10.1.0",
+    "prettier": "^3.2.5",
+    "semver": "^7.5.3",
+    "shx": "^0.3.2",
+    "sloc": "^0.3.1",
+    "sort-package-json": "^2.8.0",
+    "typescript": "~5.4.5"
+  },
+  "resolutions": {
+    "@types/react": "^18.2.28",
+    "@types/react-dom": "^18.2.13"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "jest": {
+    "transformModules": [
+      "@asyncapi/react-component"
+    ],
+    "testEnvironment": "jsdom",
+    "testTimeout": 50000
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}

@@ -1,0 +1,49 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: picpay
+  description: Organização PicPay
+  links:
+    - url: https://picpay.com/site
+      title: Website
+spec:
+  type: organization
+  profile:
+    displayName: PicPay
+    email: picpay@picpay.com
+    picture: https://play.google.com/store/apps/details?id=com.picpay&hl=pt_BR&gl=US
+  children: []
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: business_unit_1
+  description: BU exemplo
+spec:
+  profile:
+    displayName: Tech Cross
+  type: business-unit
+  parent: picpay
+  squadSre: squad-sre-1
+  children:
+    - bu1-squad-1
+    - bu1-squad-2
+    - bu1-squad-3
+    - squad-atlantis
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: business_unit_2
+  description: BU exemplo
+spec:
+  profile:
+    displayName: Tech Cross
+  type: business-unit
+  parent: picpay
+  children:
+    - bu2-squad-1
+    - bu2-squad-2
+    - bu2-squad-3

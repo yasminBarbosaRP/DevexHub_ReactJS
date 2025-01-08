@@ -1,0 +1,56 @@
+site_name: 'moonlight'
+
+nav:
+  - 'Visão Geral': index.md
+  - 'Conheça o Moonlight': pages/conheca-moonlight/index.md
+  - 'Requisitos': pages/pre-requisitos/index.md
+  - 'Acessando o Moonlight': pages/como-acessar/index.md
+  - 'Funcionalidades': pages/funcionalidades/index.md
+  - 'Utilizando o Moonlight - Guia Rápido (em construção)': pages/utilizando-moonlight/index.md
+  - 'Gerenciando equipes': pages/gerenciar-equipes/index.md
+  - 'Template de criação de microserviço':
+      - 'Sobre': pages/template-criacao-microservico/sobre.md
+      - 'Acessar os templates': pages/template-criacao-microservico/acessar-os-templates.md
+      - 'Criar microsserviço via template': pages/template-criacao-microservico/criar-microservico.md
+      - 'Contribuir com melhorias no template existente': pages/template-criacao-microservico/contribuir-melhorias.md
+      - 'Criação automática via template': pages/template-criacao-microservico/criacao-automatica.md
+      - 'Adicionar novo template': pages/template-criacao-microservico/adicionar-novo-template.md
+  - 'Catálogo de componentes':
+      - 'Sobre': pages/catalogo-componentes/sobre.md
+      - 'Como acessar o catálogo': pages/catalogo-componentes/como-acessar.md
+      - 'Configuração de serviços já existentes': pages/catalogo-componentes/configuracao-servicos-existentes.md
+      - 'Como as informações do catálogo são atualizadas': pages/catalogo-componentes/como-informacoes-sao-atualizadas.md
+  - 'Moonlight Pipeline':
+      - 'Sobre': pages/moonlight-pipeline/sobre.md
+      - 'Moonlight Pipeline': pages/moonlight-pipeline/componentes-ferramentas.md
+      - 'Adicionar tasks customizadas': pages/moonlight-pipeline/adicionar-tasks-customizadas.md
+      - 'Como mover o código para ambiente de teste': pages/moonlight-pipeline/como-mover-codigo-ambiente-teste.md
+      - 'Como mover o código para ambiente de produção': pages/moonlight-pipeline/como-mover-codigo-ambiente-producao.md
+      - 'Migração de serviços criados no Rundeck para Moonlight Pipeline':
+          - 'Início': pages/moonlight-pipeline/migracao-rundeck-moonlight/index.md
+          - 'Requisitos para migração': pages/moonlight-pipeline/migracao-rundeck-moonlight/requisitos-migracao.md
+          - 'Configuração no Github': pages/moonlight-pipeline/migracao-rundeck-moonlight/configuracao-github.md
+          - 'Configuração no Harness': pages/moonlight-pipeline/migracao-rundeck-moonlight/configuracao-harness.md
+          - 'Solução de problemas': pages/moonlight-pipeline/migracao-rundeck-moonlight/solucao-problemas.md
+  - 'TechDocs':
+      - 'O que é o TechDocs?': pages/techdocs/oque_e.md
+      - 'Como usar?': pages/techdocs/como_usar.md
+  - 'Métricas do Moonlight': pages/metricas/index.md
+  - 'Dúvidas frequentes': pages/duvidas-frequentes/index.md
+  - 'Release Notes 2021':
+      - '18/11/2021': pages/release-notes/2021-11-18.md
+      - '23/11/2021': pages/release-notes/2021-11-23.md
+      - '30/11/2021': pages/release-notes/2021-11-30.md
+      - '21/12/2021': pages/release-notes/2021-12-21.md
+      - '28/12/2021': pages/release-notes/2021-12-28.md
+  - 'Recursos': pages/recursos.md
+  - 'Dependências': pages/dependencias.md
+  - 'Começar': pages/comecar.md
+  - 'Conteúdo Relacionado': pages/relacionado.md
+  - 'Contato': pages/contato.md
+  - 'Decisão de Arquitetura':
+      - 'Estratégia de Cache 25/08/2022': pages/architecture-decision-record/caching-with-redis.md
+      - 'Execução do Discovery 15/08/2022': pages/architecture-decision-record/discovery-execution.md
+      - 'Permissões do Discovery 12/08/2022': pages/architecture-decision-record/discovery.md
+plugins:
+  - techdocs-core

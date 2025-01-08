@@ -1,0 +1,56 @@
+{
+  "name": "@internal/plugin-picpay-core-components",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.cjs.js",
+    "types": "dist/index.d.ts"
+  },
+  "backstage": {
+    "role": "backend-plugin"
+  },
+  "scripts": {
+    "start": "backstage-cli package start",
+    "build": "backstage-cli package build",
+    "lint": "backstage-cli package lint",
+    "test": "backstage-cli test",
+    "prepack": "backstage-cli package prepack",
+    "postpack": "backstage-cli package postpack",
+    "clean": "backstage-cli clean"
+  },
+  "dependencies": {
+    "@backstage/backend-common": "^0.23.2",
+    "@backstage/catalog-model": "^1.5.0",
+    "@backstage/config": "^1.2.0",
+    "@backstage/plugin-auth-node": "^0.4.16",
+    "@backstage/core-plugin-api": "^1.9.3",
+    "@backstage/types": "^1.1.1",
+    "@backstage/integration": "^1.12.0",
+    "@types/express": "*",
+    "cross-fetch": "^3.0.6",
+    "express": "^4.17.1",
+    "express-promise-router": "^4.1.0",
+    "winston": "^3.2.1",
+    "yn": "^4.0.0",
+    "octokit": "^3.1.2"
+  },
+  "devDependencies": {
+    "@backstage/cli": "^0.26.10",
+    "@jest-mock/express": "^2.0.2",
+    "@types/supertest": "^2.0.8",
+    "jest-mock-express": "^0.1.1",
+    "msw": "^0.35.0",
+    "supertest": "^4.0.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "silent": false
+  }
+}

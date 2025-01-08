@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: moonlight-plugin-scaffolder-envvar-backend
+  labels:
+    moonlight.picpay/language: javascript
+    moonlight.picpay/framework: node
+    moonlight.picpay/monitoring: dynatrace
+  tags:
+    - typescript
+    - nodejs
+    - backstage
+    - vault
+    - opsdash
+  description: |
+    Actions responsáveis por criar, migrar ou alterar variávies de ambiente
+  links:
+    - title: Adicionando Vault ao Microserviço
+      url: https://picpay.atlassian.net/wiki/spaces/SF/pages/2767028273/Adicionando+vault+ao+microservice
+  annotations:
+    github.com/project-slug: PicPay/ms-moonlight/plugins/picpay-scaffolder-envvar-backend
+    sonarqube.org/project-key: PicPay_picpay-ops-moonlight
+    lighthouse.com/website-url: https://backstage.io
+spec:
+  lifecycle: production
+  owner: squad-atlantis
+  system: moonlight
+  type: plugin
+  subcomponentOf: ms-moonlight

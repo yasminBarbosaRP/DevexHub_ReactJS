@@ -1,0 +1,238 @@
+openapi: 3.0.3
+info:
+  title: Annotations Intemediator
+  description: |-
+    API Documentation of Backend Plugin of Moonlight Portal moonlight-plugin-annotation-intermediator-backend
+  version: 1.0.0
+servers:
+  - url: https://moonlight.qa.ppay.me/api/annotation-intermediator
+paths:
+  /:
+    get:
+      tags:
+        - annotation-intermediator
+      summary: Filter Annotations
+      description: Filter saved Annotations
+      operationId: getAnnotation
+      parameters:
+        - in: query
+          name: params
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+          style: form
+          explode: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Annotation not found
+        '405':
+          description: Validation exception
+    patch:
+      tags:
+        - annotation-intermediator
+      summary: Updates an existing Annotation or Creates a new Annotation when it does not exist
+      description: Updates an existing Annotation or Creates a new Annotation when it does not exist
+      operationId: upsertAnnotation
+      requestBody:
+        description: Update an existent Annotation of an Entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Annotation not found
+        '405':
+          description: Validation exception
+
+    post:
+      tags:
+        - annotation-intermediator
+      summary: Creates an existing Annotation
+      description: Creates an existing Annotation
+      operationId: createAnnotation
+      requestBody:
+        description: Creates an Annotation of an Entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Annotation not found
+        '405':
+          description: Validation exception
+
+  /{id}:
+    put:
+      tags:
+        - annotation-intermediator
+      summary: Update an existing Annotation
+      description: Update an existing Annotation by Id
+      operationId: updateAnnotation
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: Id of the Annotation Intermediator
+      requestBody:
+        description: Update an existent Annotation of an Entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AnnotationPutDelete'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Annotation not found
+        '405':
+          description: Validation exception
+    delete:
+      tags:
+        - annotation-intermediator
+      summary: delete an existing Annotation
+      description: Delete an existing Annotation by Id
+      operationId: deleteAnnotation
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: Id of the Annotation Intermediator
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Annotation not found
+        '405':
+          description: Validation exception
+
+components:
+  schemas:
+    AnnotationCreate:
+      required:
+        - filter
+        - annotation
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 70ff5b0e-6d65-4246-bdb7-be9e2fafa5ef
+        filter:
+          type: object
+          example:
+            'metadata.name': 'ms-moonlight'
+            'spec.type': 'service'
+        annotation:
+          type: object
+          example:
+            "metadata.annotations['moonlight.picpay/migration-status']": 'MIGRATED'
+    AnnotationPutDelete:
+      required:
+        - filter
+        - annotation
+      type: object
+      properties:
+        filter:
+          type: object
+          example:
+            'metadata.name': 'ms-moonlight'
+            'spec.type': 'service'
+        annotation:
+          type: object
+          example:
+            "metadata.annotations['moonlight.picpay/migration-status']": 'MIGRATED'
+    ApiResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              example: 70ff5b0e-6d65-4246-bdb7-be9e2fafa5ef
+            filter:
+              type: object
+              example:
+                'metadata.name': 'ms-moonlight'
+                'spec.type': 'service'
+            annotation:
+              type: object
+              example:
+                "metadata.annotations['moonlight.picpay/migration-status']": 'MIGRATED'
+            created_at:
+              type: string
+            updated_at:
+              type: string
+      xml:
+        name: '##default'

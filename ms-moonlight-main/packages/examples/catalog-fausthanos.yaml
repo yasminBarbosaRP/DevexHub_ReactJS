@@ -1,0 +1,48 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: fausthanos-api
+  description: API do serviço Fausthanos
+spec:
+  type: openapi
+  lifecycle: production
+  owner: squad-atlantis
+  definition:
+    $yaml: ./swagger/swagger-fausthanos.yaml
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ms-fausthanos
+  tags:
+    - golang
+    - echo
+    - viper
+    - dynatrace
+    - api
+  description: Serviço responsável pelo self-gerenciamento de repositórios, infraestrutura criados pelo Moonlight
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: 'ms-fausthanos'
+    github.com/project-slug: 'PicPay/ms-fausthanos'
+    sonarqube.org/project-key: 'PicPay_ms-fausthanos'
+    moonlight.picpay/cluster-hom: cluster1_bu1-hom
+    moonlight.picpay/cluster-prd: cluster1_bu1-prd
+  labels:
+    moonlight.picpay/language: golang
+    moonlight.picpay/framework: echo
+    moonlight.picpay/monitoring: dynatrace
+  links:
+    - url: https://picpay.atlassian.net/jira/software/c/projects/ATL/boards/1277
+      title: Jira Board
+      icon: dashboard
+    - url: https://picpay.atlassian.net/wiki/spaces/A/overview?homepageId=2181530059
+      title: Confluence Docs
+      icon: dashboard
+spec:
+  lifecycle: production
+  owner: squad-atlantis
+  type: service
+  providesApis:
+    - fausthanos-api

@@ -1,0 +1,46 @@
+sonar:
+  run: true
+  type: other
+build:
+  enabled: true
+sast:
+  enabled: true
+deploy:
+  type: argocd
+steps:
+  - name: download-dep
+    environment:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN_MOONLIGHT:
+        from_secret: token-github-moonlight
+        key: GH_TOKEN
+    image: 289208114389.dkr.ecr.us-east-1.amazonaws.com/moonlight-images/moonlight-build:20.13.1-bbf42821ad1b0f6f5f25e14f172d107bb4cd380e
+    commands:
+      - echo "@picpay:registry=https://npm.pkg.github.com" > ~/.npmrc
+      - echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN_MOONLIGHT}" >> ~/.npmrc
+      - yarn install --silent
+
+  - name: unit-tests
+    requests:
+      memory: 2Gi
+      cpu: 2
+    image: 289208114389.dkr.ecr.us-east-1.amazonaws.com/moonlight-images/moonlight-build:20.13.1-bbf42821ad1b0f6f5f25e14f172d107bb4cd380e
+    commands:
+      - bash -c 'set -o pipefail; yarn test:all; test_exit_code=$?; yarn test:adjust_coverage_paths; exit $test_exit_code'
+    runAfter:
+      - download-dep
+
+  - name: typescript-compiler
+    image: 289208114389.dkr.ecr.us-east-1.amazonaws.com/moonlight-images/moonlight-build:20.13.1-bbf42821ad1b0f6f5f25e14f172d107bb4cd380e
+    commands:
+      - yarn tsc
+    runAfter:
+      - download-dep
+
+  - name: linter
+    image: 289208114389.dkr.ecr.us-east-1.amazonaws.com/moonlight-images/moonlight-build:20.13.1-bbf42821ad1b0f6f5f25e14f172d107bb4cd380e
+    commands:
+      - git fetch --quiet --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+      - yarn lint
+    runAfter:
+      - download-dep

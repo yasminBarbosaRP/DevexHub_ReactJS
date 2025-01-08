@@ -1,0 +1,176 @@
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/user.guest
+    backstage.io/managed-by-origin-location: url:https://github.com/user.guest
+    backstage.io/view-url: https://github.com/user.guest
+    backstage.io/edit-url: https://github.com/user.guest
+    backstage.io/source-location: url:https://github.com/
+    github.com/user-login: user.guest
+  name: user.guest
+  description: Guest
+spec:
+  profile:
+    displayName: User Guest
+    picture: https://avatars.githubusercontent.com/u/39570923?u=45c62092cea09840ab581a27930710587db9905e&v=4
+    email: user.guest@picpay.com
+  github:
+    login: userguest
+  memberOf:
+    - squad-atlantis
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/eibrunorodrigues
+    backstage.io/managed-by-origin-location: url:https://github.com/eibrunorodrigues
+    backstage.io/view-url: https://github.com/eibrunorodrigues
+    backstage.io/edit-url: https://github.com/eibrunorodrigues
+    backstage.io/source-location: url:https://github.com/
+    github.com/user-login: eibrunorodrigues
+  name: eibrunorodrigues
+  description: Senior Software Engineer
+spec:
+  profile:
+    displayName: Bruno Rodrigues da Silva
+    picture: https://avatars.githubusercontent.com/u/39570923?u=45c62092cea09840ab581a27930710587db9905e&v=4
+    email: bruno.rodrigues@picpay.com
+  memberOf:
+    - squad-atlantis
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  namespace: default
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/eltonwelsch
+    backstage.io/managed-by-origin-location: url:https://github.com/eltonwelsch
+    backstage.io/view-url: https://github.com/eltonwelsch
+    backstage.io/edit-url: https://github.com/eltonwelsch
+    backstage.io/source-location: url:https://github.com/
+    github.com/user-login: eltonwelsch
+  name: eltonwelsch
+spec:
+  profile:
+    displayName: elton welsch
+    picture: https://avatars.githubusercontent.com/u/54375756?u=c5a6bb41469c8460e037d192c7c7972d109c38f2&v=4
+    email: elton.carvalho@picpay.com
+  memberOf:
+    - squad-atlantis
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  namespace: default
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/reginaldocastardo
+    backstage.io/managed-by-origin-location: url:https://github.com/reginaldocastardo
+    backstage.io/view-url: https://github.com/reginaldocastardo
+    backstage.io/edit-url: https://github.com/reginaldocastardo
+    backstage.io/source-location: url:https://github.com/
+    github.com/user-login: reginaldocastardo
+  name: reginaldocastardo
+spec:
+  profile:
+    displayName: Reginaldo
+    picture: https://avatars.githubusercontent.com/u/73197784?u=08c0989540eecb1f33084ae560e3460effb21fce&v=4
+    email: reginaldo.castardo@picpay.com
+  memberOf:
+    - squad-atlantis
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  namespace: default
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/ManuOkadaPicPay
+    backstage.io/managed-by-origin-location: url:https://github.com/ManuOkadaPicPay
+    backstage.io/view-url: https://github.com/ManuOkadaPicPay
+    backstage.io/edit-url: https://github.com/ManuOkadaPicPay
+    backstage.io/source-location: url:https://github.com/
+    github.com/user-login: ManuOkadaPicPay
+  name: ManuOkadaPicPay
+spec:
+  profile:
+    picture: https://avatars.githubusercontent.com/u/106407575?v=4
+    email: emanuella.okada@picpay.com
+  memberOf:
+    - squad-atlantis
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  namespace: default
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/fabiorossettopp
+    backstage.io/managed-by-origin-location: url:https://github.com/fabiorossettopp
+    backstage.io/view-url: https://github.com/fabiorossettopp
+    backstage.io/edit-url: https://github.com/fabiorossettopp
+    backstage.io/source-location: url:https://github.com/
+    github.com/user-login: fabiorossettopp
+  name: fabiorossettopp
+spec:
+  profile:
+    picture: https://avatars.githubusercontent.com/u/104015613?u=7d132f580457cdf06bde448a88b5239da89a46a4&v=4
+    email: fabio.rossetto@picpay.com
+  memberOf:
+    - backend
+    - java
+    - ofertas-afiliados
+    - squad-atlantis
+    - tech-team-store
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  namespace: default
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/orgs/PicPay/teams/squad-atlantis
+    backstage.io/managed-by-origin-location: url:https://github.com/orgs/PicPay/teams/squad-atlantis
+    backstage.io/view-url: https://github.com/orgs/PicPay/teams/squad-atlantis
+    backstage.io/edit-url: https://github.com/orgs/PicPay/teams/squad-atlantis/edit
+    backstage.io/source-location: url:https://github.com/orgs/PicPay/teams/
+    github.com/team-slug: PicPay/squad-atlantis
+  name: squad-atlantis
+  description: 'Atlantis @atlantis no slack ;) '
+spec:
+  type: team
+  profile:
+    displayName: Squad Faustão
+    picture: https://avatars.githubusercontent.com/t/6482702?s=400&v=4
+  children: []
+  members:
+    - eibrunorodrigues
+    - eltonwelsch
+    - reginaldocastardo
+    - fabiorossettopp
+    - ManuOkadaPicPay
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  namespace: picpay
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/orgs/PicPay/teams/squad-atlantis
+    backstage.io/managed-by-origin-location: url:https://github.com/orgs/PicPay/teams/squad-atlantis
+    backstage.io/view-url: https://github.com/orgs/PicPay/teams/squad-atlantis
+    backstage.io/edit-url: https://github.com/orgs/PicPay/teams/squad-atlantis/edit
+    backstage.io/source-location: url:https://github.com/orgs/PicPay/teams/
+    github.com/team-slug: PicPay/squad-atlantis
+  name: squad-atlantis
+  description: 'Atlantis @atlantis no slack ;) '
+spec:
+  type: team
+  profile:
+    displayName: Squad Faustão
+    picture: https://avatars.githubusercontent.com/t/6482702?s=400&v=4
+  children: []
+  members:
+    - eibrunorodrigues
+    - eltonwelsch
+    - reginaldocastardo
+    - fabiorossettopp
+    - ManuOkadaPicPay

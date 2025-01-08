@@ -1,0 +1,17 @@
+{
+  "labels": {
+    "bu": "${{ values.bu }}"
+  },
+  "notifications": {
+    "slack": "argocd-notifications;harness-deploys"
+  },
+  "source": {
+    "repo": "https://github.com/PicPay/${{ values.name }}-infra.git",
+    "path": "chart",
+    "values": "values.qa.yaml"
+  },
+  "destination": {
+    "name": "${{ values.cluster.homolog }}",
+    "namespace": "${{ values.name }}"
+  }
+}

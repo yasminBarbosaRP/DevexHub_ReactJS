@@ -1,0 +1,104 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: cluster1_bu1-prd
+  tags:
+    - eks
+  description: |
+    Cluster do ambiente cluster1_bu1
+  links:
+    - url: https://picpay.atlassian.net/wiki/spaces/IC/pages/2386133007/Manifesto+Kubernetes+de+Boas+Pr+ticas+para+Deployments+de+Alta+Disponibilidade
+      title: Manifesto Kubernetes de Boas Práticas para Deployments de Alta Disponibilidade
+      icon: dashboard
+  labels:
+    moonlight.picpay/aws-account: business_unit_1-prod.404187436949
+    moonlight.picpay/maintainer: developer-tools
+    moonlight.picpay/short-name: BU1
+    moonlight.picpay/vault-role: kubernetes-business_unit_1-prd
+  annotations:
+    backstage.io/kubernetes-id: cluster1_bu1-prd
+    github.com/project-slug: PicPay/stack-terraform-eks-cluster1_bu1-prd
+    vault/region: vbr
+spec:
+  lifecycle: experimental
+  owner: business_unit_1
+  type: eks
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: cluster1_bu2-prd
+  tags:
+    - eks
+  description: |
+    Cluster do ambiente cluster1_bu2
+  links:
+    - url: https://picpay.atlassian.net/wiki/spaces/IC/pages/2386133007/Manifesto+Kubernetes+de+Boas+Pr+ticas+para+Deployments+de+Alta+Disponibilidade
+      title: Manifesto Kubernetes de Boas Práticas para Deployments de Alta Disponibilidade
+      icon: dashboard
+  labels:
+    moonlight.picpay/aws-account: business_unit_2-prod.404187436949
+    moonlight.picpay/maintainer: developer-tools
+    moonlight.picpay/short-name: BU1
+    moonlight.picpay/vault-role: kubernetes-business_unit_2-prd
+  annotations:
+    backstage.io/kubernetes-id: cluster1_bu2-prd
+    github.com/project-slug: PicPay/stack-terraform-eks-cluster1_bu2-prd
+    vault/region: vbr
+spec:
+  lifecycle: experimental
+  owner: business_unit_2
+  type: eks
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: cluster_abc_01_bu2-prd
+  tags:
+    - eks
+  description: |
+    Cluster do ambiente cluster_abc_01_bu2
+  links:
+    - url: https://picpay.atlassian.net/wiki/spaces/IC/pages/2386133007/Manifesto+Kubernetes+de+Boas+Pr+ticas+para+Deployments+de+Alta+Disponibilidade
+      title: Manifesto Kubernetes de Boas Práticas para Deployments de Alta Disponibilidade
+      icon: dashboard
+  labels:
+    moonlight.picpay/aws-account: business_unit_2-prod.404187436949
+    moonlight.picpay/maintainer: developer-tools
+    moonlight.picpay/short-name: BU2
+    moonlight.picpay/vault-role: kubernetes-business_unit_2-prd
+  annotations:
+    backstage.io/kubernetes-id: cluster_abc_01_bu2-prd
+    github.com/project-slug: PicPay/stack-terraform-eks-cluster_abc_01_bu2-prd
+spec:
+  lifecycle: experimental
+  owner: business_unit_2
+  type: eks
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: cluster_abc_02_bu2-prd
+  tags:
+    - eks
+  description: |
+    Cluster do ambiente cluster_abc_02_bu2
+  links:
+    - url: https://picpay.atlassian.net/wiki/spaces/IC/pages/2386133007/Manifesto+Kubernetes+de+Boas+Pr+ticas+para+Deployments+de+Alta+Disponibilidade
+      title: Manifesto Kubernetes de Boas Práticas para Deployments de Alta Disponibilidade
+      icon: dashboard
+  labels:
+    moonlight.picpay/aws-account: business_unit_2-prod.404187436949
+    moonlight.picpay/maintainer: developer-tools
+    moonlight.picpay/short-name: BU2
+    moonlight.picpay/vault-role: kubernetes-business_unit_2-prd
+  annotations:
+    backstage.io/kubernetes-id: cluster_abc-02_bu2-prd
+    github.com/project-slug: PicPay/stack-terraform-eks-cluster_abc_02_bu2s-prd
+spec:
+  lifecycle: experimental
+  owner: business_unit_2
+  type: eks

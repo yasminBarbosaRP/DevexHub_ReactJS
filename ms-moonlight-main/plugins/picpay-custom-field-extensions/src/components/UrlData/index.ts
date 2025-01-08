@@ -1,1 +1,0 @@
-export { UrlDataFieldExtension } from './extensions';

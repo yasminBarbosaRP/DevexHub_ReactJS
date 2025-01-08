@@ -1,1 +1,0 @@
-export { OwnershipComboPickerFieldExtension } from './extensions';

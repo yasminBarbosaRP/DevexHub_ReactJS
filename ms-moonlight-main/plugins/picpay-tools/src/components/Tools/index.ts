@@ -1,1 +1,0 @@
-export { ToolsComponent } from './ToolsComponent';

@@ -1,1 +1,0 @@
-export { CustomTemplateCard } from './CustomTemplateCard';

@@ -1,1 +1,0 @@
-export { VaultGateway } from './VaultGateway';

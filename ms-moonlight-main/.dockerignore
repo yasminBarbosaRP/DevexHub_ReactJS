@@ -1,6 +1,0 @@
-# Ignorar todas as pastas node_modules
-**/node_modules
-/node_modules
-/packages/app/node_modules
-/packages/backend/node_modules
-/plugins/*/node_modules

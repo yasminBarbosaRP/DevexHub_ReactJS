@@ -1,8 +1,0 @@
-# Name: Moonlight-Prod
-- appId: ${GITHUB_APP_ID}
-  webhookUrl: GITHUB_APP_WEBOOK_URL
-  clientId: GITHUB_APP_CLIENT_ID
-  clientSecret: GITHUB_APP_CLIENT_SECRET
-  webhookSecret: GITHUB_APP_WEBHOOK_SECRET
-  privateKey:
-    $env: GITHUB_APP_PRIVATE_KEY
